@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rbac',
     'web',
 ]
 
@@ -46,7 +47,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'web.middlewares.mymiddleware.Auth',
+    'rbac.middlewares.mymiddleware.Auth',
 ]
 
 ROOT_URLCONF = 'permission.urls'

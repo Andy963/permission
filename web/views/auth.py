@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 
-from web.models import *
-from utils.permission_injection import init_permission
-
+from rbac.utils.permission_injection import init_permission
+from rbac.models import UserInfo
 # Create your views here.
 
 def login(request):

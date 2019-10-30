@@ -6,7 +6,7 @@ import re
 from django.utils.deprecation import MiddlewareMixin
 from django.shortcuts import redirect, reverse, render, HttpResponse
 
-from web.models import Permission
+from rbac.models import Permission
 
 
 class Auth(MiddlewareMixin):
