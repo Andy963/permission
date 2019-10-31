@@ -8,11 +8,6 @@ from django import template
 
 register = template.Library()
 
-# @register.filter
-# def menu(request):
-#     menu_list = request.session.get('menu_list')
-#     return menu_list
-
 '''
 {
     1: {
@@ -46,21 +41,30 @@ register = template.Library()
 @register.inclusion_tag('menu.html')
 def menu(request):
     menu_dict = request.session.get('menu_dict')
-    menu_order_key = sorted(menu_dict, key=lambda x: menu_dict[x]['weight'], reverse=True)
-
     menu_order_dict = OrderedDict()
+    path = request.path
+
+    # 按权重进行排序
+    menu_order_key = sorted(menu_dict, key=lambda x: menu_dict[x]['weight'], reverse=True)
 
     for key in menu_order_key:
         menu_order_dict[key] = menu_dict[key]
 
-    path = request.path
-    for k, v in menu_order_dict.items():
-        v['class'] = 'hidden'
-        for i in v['children']:
-            # if re.match(i['url'], path):
-            if request.pid == i['second_menu_id']:
-                # print(i['second_menu_id'])
-                v['class'] = ''
-                i['class'] = 'active'
+    for menu_id, menu in menu_order_dict.items():
+        menu['class'] = 'hidden'  # 默认都为折叠状态
+
+        for child_menu in menu['children']:
+            # 父级权限的id与某个子菜单id相同时，说明打开的是子菜单，需要展开子菜单，并将其对应的菜单active
+            if request.pid == child_menu['second_menu_id']:
+                menu['class'] = ''
+                child_menu['class'] = 'active'
     menu_data = {'menu_order_dict': menu_order_dict}
     return menu_data
+
+
+@register.inclusion_tag('bread_crumb.html')
+def bread_crumb(request):
+    # 从request中获取bread_crumb,渲染到bread_crumb.html,然后返回
+    bread_crumb = request.bread_crumb
+    context = {'bread_crumb': bread_crumb}
+    return context
