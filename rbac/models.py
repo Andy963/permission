@@ -3,7 +3,7 @@ from django.db import models
 
 # Create your models here.
 
-class menu(models.Model):
+class Menu(models.Model):
     name = models.CharField(max_length=32, verbose_name='菜单标题')
     icon = models.CharField(max_length=32, null=True, blank=True)
     weight = models.IntegerField(default=100)  # 控制菜单排序的,权重值越大,菜单展示越靠前

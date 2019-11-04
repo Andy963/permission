@@ -5,11 +5,11 @@ from rbac.models import *
 
 # Register your models here.
 class PermissionAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'url', 'menus', ]
-    list_editable = ['title', 'url', 'menus', ]
+    list_display = ['id', 'title', 'url', 'menus', 'url_name' ]
+    list_editable = ['title', 'url', 'menus', 'url_name']
 
 
-admin.site.register(menu)
+admin.site.register(Menu)
 admin.site.register(Role)
 admin.site.register(Permission, PermissionAdmin)
 admin.site.register(UserInfo)

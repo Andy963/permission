@@ -38,7 +38,7 @@ register = template.Library()
 '''
 
 
-@register.inclusion_tag('menu.html')
+@register.inclusion_tag('rbac_menu.html')
 def menu(request):
     menu_dict = request.session.get('menu_dict')
     menu_order_dict = OrderedDict()
@@ -62,9 +62,19 @@ def menu(request):
     return menu_data
 
 
-@register.inclusion_tag('bread_crumb.html')
+@register.inclusion_tag('rbac_bread_crumb.html')
 def bread_crumb(request):
     # 从request中获取bread_crumb,渲染到bread_crumb.html,然后返回
     bread_crumb = request.bread_crumb
     context = {'bread_crumb': bread_crumb}
     return context
+
+
+@register.simple_tag
+def gen_role_url(request, rid):
+    params = request.GET.copy()
+
+    params._mutable = True
+    params['rid'] = rid
+    # params = {'uid': 1,'rid':'a=1'}
+    return params.urlencode()
