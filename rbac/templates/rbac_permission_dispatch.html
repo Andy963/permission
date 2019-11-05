@@ -1,87 +1,5 @@
 {% extends 'rbac_base.html' %}
 {% load rbac_tags %}
-{% block custom_css %}
-    <style>
-        .user-area ul {
-            padding-left: 20px;
-        }
-
-        .user-area li {
-            cursor: pointer;
-            padding: 2px 0;
-        }
-
-        .user-area li a {
-            display: block;
-        }
-
-        .user-area li.active {
-            font-weight: bold;
-            color: red;
-        }
-
-        .user-area li.active a {
-            color: red;
-        }
-
-        .role-area tr td a {
-            display: block;
-        }
-
-        .role-area tr.active {
-            background-color: #f1f7fd;
-            border-left: 3px solid #fdc00f;
-        }
-
-        .permission-area tr.root {
-            background-color: #f1f7fd;
-            cursor: pointer;
-        }
-
-        .permission-area tr.root td i {
-            margin: 3px;
-        }
-
-        .permission-area .node {
-
-        }
-
-        .permission-area .node input[type='checkbox'] {
-            margin: 0 5px;
-        }
-
-        .permission-area .node .parent {
-            padding: 5px 0;
-        }
-
-        .permission-area .node label {
-            font-weight: normal;
-            margin-bottom: 0;
-            font-size: 12px;
-        }
-
-        .permission-area .node .children {
-            padding: 0 0 0 20px;
-        }
-
-        .permission-area .node .children .child {
-            display: inline-block;
-            margin: 2px 5px;
-        }
-
-        table {
-            font-size: 12px;
-        }
-
-        .panel-body {
-            font-size: 12px;
-        }
-
-        .panel-body .form-control {
-            font-size: 12px;
-        }
-    </style>
-{% endblock custom_css %}
 
 {% block content %}
     <div class="rbac-container">
@@ -167,7 +85,7 @@
                             </button>
                         {% endif %}
                     </div>
-                    <div class="panel-body" style="color: #d4d4d4;padding: 10px 5px;">
+                    <div class="panel-body" style="color: mediumvioletred;padding: 10px 5px;">
                         提示：点击角色后，才能为其分配权限。
                     </div>
                     <table class="table">

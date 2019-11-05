@@ -1,56 +1,18 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en">
-<style>
-    .left-menu .menu-body .static-menu {
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/rbac_menu.css' %}">
+{% endblock custom_css %}
 
-    }
-
-    .left-menu .menu-body .static-menu .icon-wrap {
-        width: 20px;
-        display: inline-block;
-        text-align: center;
-    }
-
-    .left-menu .menu-body .static-menu a {
-        text-decoration: none;
-        padding: 8px 15px;
-        border-bottom: 1px solid #ccc;
-        color: #333;
-        display: block;
-        background: #efefef;
-        background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #efefef), color-stop(1, #fafafa));
-        background: -ms-linear-gradient(bottom, #efefef, #fafafa);
-        background: -moz-linear-gradient(center bottom, #efefef 0%, #fafafa 100%);
-        background: -o-linear-gradient(bottom, #efefef, #fafafa);
-        filter: progid:dximagetransform.microsoft.gradient(startColorStr='#e3e3e3', EndColorStr='#ffffff');
-        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#fafafa',EndColorStr='#efefef')";
-        box-shadow: inset 0px 1px 1px white;
-    }
-
-    .left-menu .menu-body .static-menu a:hover {
-        color: #2F72AB;
-        border-left: 2px solid #2F72AB;
-    }
-
-    .left-menu .menu-body .static-menu a.active {
-        color: #2F72AB;
-        border-left: 2px solid #2F72AB;
-    }
-</style>
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
 <div class="left-menu">
     <div class="menu-body">
         <div class="static-menu">
             {% for k,v in menu_order_dict.items %}
                 <div class="item">
-                    <div class="title"><i class="{{ v.icon }}"></i>{{ v.name }}</div>
-                    <div class="body {{ v.class }}">
+                    <div class="title" style='margin-left:18px;line-height:30px;'><i
+                            class="{{ v.icon }}"></i>{{ v.name }}</div>
+                    <div class="body {{ v.class }}" style='margin-left:18px;'>
                         {% for child in v.children %}
                             <a href="{{ child.url }}" class="{{ child.class }}">{{ child.title }}</a>
                         {% endfor %}
@@ -61,14 +23,14 @@
         </div>
     </div>
 </div>
-<script src="{% static 'js/jquery-3.3.1.min.js' %} "></script>
-<script src="{% static 'plugins/bootstrap/js/bootstrap.js' %} "></script>
-{% block js %}
+
+{% block custom_js %}
+    <!--点击菜单动态效果 -->
     <script>
-        $('.title').click(function () {
-            $(this).next().toggleClass('hidden');
+        $(document).ready(function () {
+            $('.title').click(function () {
+                $(this).next().toggleClass('hidden');
+            })
         })
     </script>
-{% endblock js %}
-</body>
-</html>
+{% endblock custom_js %}

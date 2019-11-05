@@ -16,7 +16,8 @@ class Auth(MiddlewareMixin):
         login_white_list = [reverse('web:login'), ]
         # 权限验证白名单
         # TODO 第一次添加组件时，将 '.*'加入permission_white_list，完成权限的添加
-        permission_white_list = [reverse('web:index'), '/admin/*', '.*']
+        # if you add '.*/' to permission_white_list, your bread_crumb will not work
+        permission_white_list = [reverse('web:index'), '/admin/*', ]
 
         request.pid = None
         # 默认添加首页的面包屑

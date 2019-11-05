@@ -1,23 +1,5 @@
 {% extends 'rbac_base.html' %}
 
-{% block css %}
-    <style>
-        .permission-area tr.parent {
-            background-color: #cae7fd;;
-        }
-
-        .menu-body tr.active {
-            background-color: #f1f7fd;
-            border-left: 3px solid #fdc00f;
-        }
-
-        .active {
-            background-color: #cae7fd;;
-        }
-
-    </style>
-{% endblock %}
-
 {% block content %}
     <div class="container-fluid">
         <div class="row">
@@ -35,20 +17,21 @@
                         <table class="table table-bordered table-striped table-hover">
                             <thead>
                             <tr>
-                                <th>名称</th>
-                                <th>图标</th>
-                                <th>操作</th>
+                                <th class="info">名称</th>
+                                <th class="success">图标</th>
+                                <th class="info">操作</th>
                             </tr>
                             </thead>
                             <tbody class="menu-body">
                             {% for menu in menu_list %}
-
+                                <!--TODO 这里的active 作用是？ -->
                                 <tr class="{% if menu_id == menu.pk|safe %}active{% endif %}">
-                                    <td><a href="">{{ menu.name }}</a></td>
+                                    <td><i>{{ menu.name }}</i></td>
                                     <td><i class="{{ menu.icon }}"></i></td>
-                                    <td>
+                                    <td class="text-center">
                                         <a href="{% url 'rbac:menu_edit' menu.pk %}"><i class="fa fa-edit"></i></a>
-                                        <a href="{% url 'rbac:menu_del' menu.pk %}"><i class="fa fa-remove"></i></a>
+                                        <a href="{% url 'rbac:menu_del' menu.pk %}"><i
+                                                class="fa fa-remove text-danger"></i></a>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -61,9 +44,11 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title"><i class="fa fa-cubes"></i>权限管理
-                            <a href="" class="btn btn-primary pull-right" style="padding: 1px 3px;color:white;">
+                            <a href="{% url 'rbac:permission_list' %}" class="btn btn-primary pull-right"
+                               style="padding: 1px 3px;color:white;">
                                 <i class="fa fa-scissors"></i>批量操作</a>
-                            <a href="" class="btn btn-success pull-right" style="padding: 1px 3px;color:white;">
+                            <a href="{% url 'rbac:permission_add' %}" class="btn btn-success pull-right"
+                               style="padding: 1px 3px;color:white; margin-right:8px;">
                                 <i class="fa fa-plus"></i>新建</a>
                         </h3>
                     </div>
@@ -71,18 +56,18 @@
                         <table class="table table-bordered table-hover permission-area">
                             <thead>
                             <tr>
-                                <th>名称</th>
-                                <th>URL</th>
-                                <th>URL别名</th>
-                                <th>菜单</th>
-                                <th>所属菜单</th>
-                                <th>操作</th>
+                                <th class="info">名称</th>
+                                <th class="success">URL</th>
+                                <th class="info">URL别名</th>
+                                <th class="success">菜单</th>
+                                <th class="info">所属菜单</th>
+                                <th class="success">操作</th>
                             </tr>
                             </thead>
                             <tbody>
                             {% for permission in permission_list %}
 
-                                <tr class="parent {% if permission.menus__name %}active{% endif %}">
+                                <tr class="parent {% if permission.menus__name %}parent_active{% endif %}">
 
                                     <td class="click_caret"><i class="fa fa-caret-down icon"></i> {{ permission.title }}
                                     </td>
@@ -91,9 +76,13 @@
                                     <td>是</td>
                                     <td>{{ permission.menus__name }}</td>
 
-                                    <td>
+                                    <td class="text-center">
                                         <a href=""><i class="fa fa-edit"></i></a>
-                                        <a href=""><i class="fa fa-remove"></i></a></td>
+                                        {% if not permission.menus__name %}
+
+                                            <a href=""><i class="fa fa-remove"></i></a></td>
+                                        {% endif %}
+
                                 </tr>
                                 {% for child_permission in permission.children %}
                                     <tr class="">
@@ -106,9 +95,9 @@
                                         </td>
                                         <td>{{ child_permission.menus|default:'' }}</td>
 
-                                        <td>
+                                        <td class="text-center">
                                             <a href=""><i class="fa fa-edit"></i></a>
-                                            <a href=""><i class="fa fa-remove"></i></a></td>
+                                            <a href=""><i class="fa fa-remove text-danger"></i></a></td>
                                     </tr>
                                 {% endfor %}
                             {% endfor %}
@@ -122,14 +111,16 @@
     </div>
 {% endblock %}
 
-{% block js %}
+{% block custom_js %}
     <script>
-        $('.click_caret').click(function () {
-            $(this).parent().find('.icon').toggleClass('fa-caret-right');
-            $(this).parent().nextUntil('.parent').toggleClass('hidden');
+        $(document).ready(function () {
+            $('.click_caret').click(function () {
+                $(this).parent().find('.icon').toggleClass('fa-caret-right');
+                $(this).parent().nextUntil('.parent').toggleClass('hidden');
+            })
         })
     </script>
-{% endblock %}
+{% endblock custom_js %}
 
 
 

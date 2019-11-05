@@ -1,5 +1,4 @@
 {% load staticfiles %}
-<!-- load rbac_tags -->
 {% load rbac_tags %}
 
 <!DOCTYPE html>
@@ -12,51 +11,14 @@
     <link rel="stylesheet" href="{% static 'plugins/font-awesome/css/font-awesome.css' %} "/>
     <link rel="stylesheet" href="{% static 'css/commons.css' %} "/>
     <link rel="stylesheet" href="{% static 'css/nav.css' %} "/>
+    <script src="{% static 'js/jquery-3.3.1.min.js' %} "></script>
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.js' %} "></script>
     <style>
         body {
             margin: 0;
         }
 
-        .no-radius {
-            border-radius: 0;
-        }
 
-        .no-margin {
-            margin: 0;
-        }
-
-        .pg-body > .left-menu {
-            background-color: #EAEDF1;
-            position: absolute;
-            left: 1px;
-            top: 48px;
-            bottom: 0;
-            width: 220px;
-            border: 1px solid #EAEDF1;
-            overflow: auto;
-        }
-
-        .pg-body > .right-body {
-            position: absolute;
-            left: 225px;
-            right: 0;
-            top: 48px;
-            bottom: 0;
-            overflow: scroll;
-            border: 1px solid #ddd;
-            border-top: 0;
-            font-size: 13px;
-            min-width: 755px;
-        }
-
-        .navbar-right {
-            float: right !important;
-            margin-right: -15px;
-        }
-
-        .rbac-container {
-            padding: 15px;
-        }
 
 
     </style>
@@ -136,10 +98,9 @@
 </div>
 
 
-<script src="{% static 'js/jquery-3.3.1.min.js' %} "></script>
-<script src="{% static 'plugins/bootstrap/js/bootstrap.js' %} "></script>
-{% block js %}
 
-{% endblock %}
+{% block custom_js %}
+
+{% endblock custom_js %}
 </body>
 </html>
